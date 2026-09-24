@@ -67,3 +67,24 @@ bool sv_starts_with(str_view *sv, const char *prefix) {
     }
     return true;
 }
+
+str_view sv_chop_by_delim(str_view *sv, const char delim) {
+    size_t i = 0;
+    for (; i < sv->len; i++) {
+        if (delim == sv->data[i])
+            break;
+    }
+    ++i;
+
+    str_view chopped = {
+        .data = sv->data,
+        .len = sv->len > i ? i - 1 : sv->len,
+    };
+
+    if (sv->len > i) {
+        sv->data += i;
+        sv->len -= i;
+    }
+
+    return chopped;
+}
