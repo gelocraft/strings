@@ -35,3 +35,35 @@ void sv_trim_start(str_view *sv) {
         sv->len -= 1;
     }
 }
+
+bool sv_ends_with(str_view *sv, const char *suffix) {
+    size_t sv_len = sv->len;
+    size_t suffix_len = strlen(suffix);
+
+    if (suffix_len > sv_len) {
+        return false;
+    }
+
+    for (size_t i = suffix_len; i > 0; i--) {
+        if (sv->data[sv_len - 1] != suffix[i - 1]) {
+            return false;
+        }
+        sv_len--;
+    }
+
+    return true;
+}
+
+bool sv_starts_with(str_view *sv, const char *prefix) {
+    size_t prefix_len = strlen(prefix);
+    if (prefix_len > sv->len) {
+        return false;
+    }
+
+    for (size_t i = 0; i < prefix_len; i++) {
+        if (sv->data[i] != prefix[i]) {
+            return false;
+        }
+    }
+    return true;
+}

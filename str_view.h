@@ -2,6 +2,7 @@
 #define STR_VIEW_H
 
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct {
     const char* data;
@@ -15,5 +16,8 @@ void sv_print(str_view *sv);
 void sv_trim(str_view *sv);
 void sv_trim_end(str_view *sv);
 void sv_trim_start(str_view *sv);
+
+bool sv_ends_with(str_view *sv, const char *suffix);
+bool sv_starts_with(str_view *sv, const char *prefix);
 
 #endif // !STR_VIEW_H
