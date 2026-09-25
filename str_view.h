@@ -20,6 +20,9 @@ void sv_trim_start(str_view *sv);
 bool sv_ends_with(str_view *sv, const char *suffix);
 bool sv_starts_with(str_view *sv, const char *prefix);
 
+bool sv_ends_with_whitespace(str_view *sv);
+bool sv_starts_with_whitespace(str_view *sv);
+
 str_view sv_chop_by_delim(str_view *sv, const char delim);
 
 #endif // !STR_VIEW_H

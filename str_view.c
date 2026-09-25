@@ -88,3 +88,17 @@ str_view sv_chop_by_delim(str_view *sv, const char delim) {
 
     return chopped;
 }
+
+bool sv_ends_with_whitespace(str_view *sv) {
+    if (sv->len == 0) {
+        return false;
+    }
+    return isspace(sv->data[sv->len - 1]);
+}
+
+bool sv_starts_with_whitespace(str_view *sv) {
+    if (sv->len == 0) {
+        return false;
+    }
+    return isspace(sv->data[0]);
+}
