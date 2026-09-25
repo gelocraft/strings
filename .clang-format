@@ -5,7 +5,7 @@ AllowShortLoopsOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
 IndentCaseLabels: true
 InsertBraces: false
-RemoveBracesLLVM: true
+RemoveBracesLLVM: false
 PointerAlignment: Right
 SpaceBeforeParens: ControlStatements
 BreakBeforeBraces: Attach
