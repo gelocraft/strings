@@ -65,11 +65,13 @@ str_view sv_chop_by_delim(str_view *sv, const char delim) {
     ++i;
 
     str_view chopped = {
-        .data = sv->data,
-        .len = sv->len > i ? i - 1 : sv->len,
+        .data = NULL,
+        .len = 0,
     };
 
     if (sv->len > i) {
+        chopped.data = sv->data;
+        chopped.len = i - 1;
         sv->data += i;
         sv->len -= i;
     }
