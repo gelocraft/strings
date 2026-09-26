@@ -27,4 +27,7 @@ str_view sv_chop_by_delim(str_view *sv, const char delim);
 
 str_view sv_identity(str_view *sv);
 
+bool sv_equal(str_view *sv1, str_view *sv2);
+bool sv_equal_cstr(str_view *sv, const char *cstr);
+
 #endif // !STR_VIEW_H

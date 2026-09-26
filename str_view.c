@@ -90,3 +90,19 @@ bool sv_starts_with_whitespace(str_view *sv) {
 }
 
 str_view sv_identity(str_view *sv) { return *sv; }
+
+bool sv_equal(str_view *sv1, str_view *sv2) {
+    if (sv1->len != sv2->len) return false;
+    for (size_t i = 0; i < sv1->len; i++) {
+        if (sv1->data[i] != sv2->data[i]) return false;
+    }
+    return true;
+}
+
+bool sv_equal_cstr(str_view *sv, const char *cstr) {
+    if (strlen(cstr) != sv->len) return false;
+    for (size_t i = 0; i < sv->len; i++) {
+        if (cstr[i] != sv->data[i]) return false;
+    }
+    return true;
+}
