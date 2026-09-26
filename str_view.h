@@ -25,4 +25,6 @@ bool sv_starts_with_whitespace(str_view *sv);
 
 str_view sv_chop_by_delim(str_view *sv, const char delim);
 
+str_view sv_identity(str_view *sv);
+
 #endif // !STR_VIEW_H

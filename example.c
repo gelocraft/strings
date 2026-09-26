@@ -6,9 +6,7 @@ int main(void) {
 
     str_view method = sv_chop_by_delim(&request_line, ' ');
     str_view target = sv_chop_by_delim(&request_line, ' ');
-    str_view http_version = sv_chop_by_delim(&request_line, ' ');
-
-    if (http_version.data == NULL) http_version = request_line;
+    str_view http_version = sv_identity(&request_line);
 
     sv_print(&method);
     sv_print(&target);

@@ -88,3 +88,5 @@ bool sv_starts_with_whitespace(str_view *sv) {
     if (sv->len == 0) return false;
     return isspace(sv->data[0]);
 }
+
+str_view sv_identity(str_view *sv) { return *sv; }
