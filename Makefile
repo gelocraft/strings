@@ -8,12 +8,8 @@ all: $(BINARY)
 $(BINARY): example.o str_view.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-str_view.o: str_view.c str_view.h
+%.o: %.c %.h
 	$(CC) $(CFLAGS) -c -o $@ $<
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^
-
 
 .PHONY: clean
 clean:
