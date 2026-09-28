@@ -12,9 +12,7 @@ str_view sv_from_cstr(const char *cstr) {
 
 void sv_print(str_view *sv) {
     size_t i = 0;
-    putchar('|');
     for (; i < sv->len; i++) putchar(sv->data[i]);
-    puts("|");
 }
 
 void sv_trim(str_view *sv) {
@@ -105,4 +103,33 @@ bool sv_equal_cstr(str_view *sv, const char *cstr) {
         if (cstr[i] != sv->data[i]) return false;
     }
     return true;
+}
+
+bool sv_empty(str_view *sv) { return sv->len == 0 || sv->data == NULL; }
+
+bool sv_ends_with_crlf(str_view *sv) { return sv_ends_with(sv, "\r\n"); }
+
+str_view sv_chop_by_crlf(str_view *sv) {
+
+    size_t i = 0;
+    for (; i < sv->len; i++) {
+        if (i + 1 < sv->len) {
+            if (sv->data[i] == '\r' && sv->data[i + 1] == '\n') break;
+        }
+    }
+    ++i;
+
+    str_view chopped = {
+        .data = NULL,
+        .len = 0,
+    };
+
+    if (sv->len > i) {
+        chopped.data = sv->data;
+        chopped.len = i + 1;
+        sv->data += i + 1;
+        sv->len -= i + 1;
+    }
+
+    return chopped;
 }

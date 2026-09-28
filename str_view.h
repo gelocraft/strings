@@ -30,4 +30,10 @@ str_view sv_identity(str_view *sv);
 bool sv_equal(str_view *sv1, str_view *sv2);
 bool sv_equal_cstr(str_view *sv, const char *cstr);
 
+bool sv_empty(str_view *sv);
+
+bool sv_ends_with_crlf(str_view *sv);
+
+str_view sv_chop_by_crlf(str_view *sv);
+
 #endif // !STR_VIEW_H

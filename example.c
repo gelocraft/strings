@@ -2,18 +2,18 @@
 #include <assert.h>
 
 int main(void) {
-    str_view request_line = sv_from_cstr("GET / HTTP/1.1\r\n");
-    sv_trim_end(&request_line);
+    str_view raw_http_request =
+        sv_from_cstr("GET / HTTP/1.1\r\nHost: localhost:6969\r\n");
 
-    str_view method = sv_chop_by_delim(&request_line, ' ');
-    str_view target = sv_chop_by_delim(&request_line, ' ');
-    str_view http_version = sv_identity(&request_line);
+    str_view request_line = sv_chop_by_crlf(&raw_http_request);
+    str_view field_line = sv_chop_by_crlf(&raw_http_request);
 
-    assert(sv_equal(&request_line, &http_version));
+    assert(sv_equal_cstr(&request_line, "GET / HTTP/1.1\r\n"));
+    assert(sv_equal_cstr(&field_line, "Host: localhost:6969\r\n"));
 
-    assert(sv_equal_cstr(&method, "GET"));
-    assert(sv_equal_cstr(&target, "/"));
-    assert(sv_equal_cstr(&http_version, "HTTP/1.1"));
+    assert(sv_ends_with_crlf(&request_line));
+    assert(sv_ends_with_crlf(&field_line));
 
-    return 0;
+    str_view empty = sv_from_cstr("");
+    assert(sv_empty(&empty));
 }
