@@ -10,9 +10,8 @@ str_view sv_from_cstr(const char *cstr) {
     };
 }
 
-void sv_print(str_view *sv) {
-    size_t i = 0;
-    for (; i < sv->len; i++) putchar(sv->data[i]);
+void sv_print(str_view sv) {
+    for (size_t i = 0; i < sv.len; i++) putchar(sv.data[i]);
 }
 
 void sv_trim(str_view *sv) {
@@ -31,26 +30,26 @@ void sv_trim_start(str_view *sv) {
     }
 }
 
-bool sv_ends_with(str_view *sv, const char *suffix) {
-    size_t sv_len = sv->len;
+bool sv_ends_with(str_view sv, const char *suffix) {
+    size_t sv_len = sv.len;
     size_t suffix_len = strlen(suffix);
 
     if (suffix_len > sv_len) return false;
 
     for (size_t i = suffix_len; i > 0; i--) {
-        if (sv->data[sv_len - 1] != suffix[i - 1]) return false;
+        if (sv.data[sv_len - 1] != suffix[i - 1]) return false;
         sv_len--;
     }
 
     return true;
 }
 
-bool sv_starts_with(str_view *sv, const char *prefix) {
+bool sv_starts_with(str_view sv, const char *prefix) {
     size_t prefix_len = strlen(prefix);
-    if (prefix_len > sv->len) return false;
+    if (prefix_len > sv.len) return false;
 
     for (size_t i = 0; i < prefix_len; i++) {
-        if (sv->data[i] != prefix[i]) return false;
+        if (sv.data[i] != prefix[i]) return false;
     }
     return true;
 }
@@ -77,37 +76,37 @@ str_view sv_chop_by_delim(str_view *sv, const char delim) {
     return chopped;
 }
 
-bool sv_ends_with_whitespace(str_view *sv) {
-    if (sv->len == 0) return false;
-    return isspace(sv->data[sv->len - 1]);
+bool sv_ends_with_whitespace(str_view sv) {
+    if (sv.len == 0) return false;
+    return isspace(sv.data[sv.len - 1]);
 }
 
-bool sv_starts_with_whitespace(str_view *sv) {
-    if (sv->len == 0) return false;
-    return isspace(sv->data[0]);
+bool sv_starts_with_whitespace(str_view sv) {
+    if (sv.len == 0) return false;
+    return isspace(sv.data[0]);
 }
 
-str_view sv_identity(str_view *sv) { return *sv; }
+str_view sv_identity(str_view sv) { return sv; }
 
-bool sv_equal(str_view *sv1, str_view *sv2) {
-    if (sv1->len != sv2->len) return false;
-    for (size_t i = 0; i < sv1->len; i++) {
-        if (sv1->data[i] != sv2->data[i]) return false;
+bool sv_equal(str_view sv1, str_view sv2) {
+    if (sv1.len != sv2.len) return false;
+    for (size_t i = 0; i < sv1.len; i++) {
+        if (sv1.data[i] != sv2.data[i]) return false;
     }
     return true;
 }
 
-bool sv_equal_cstr(str_view *sv, const char *cstr) {
-    if (strlen(cstr) != sv->len) return false;
-    for (size_t i = 0; i < sv->len; i++) {
-        if (cstr[i] != sv->data[i]) return false;
+bool sv_equal_cstr(str_view sv, const char *cstr) {
+    if (strlen(cstr) != sv.len) return false;
+    for (size_t i = 0; i < sv.len; i++) {
+        if (cstr[i] != sv.data[i]) return false;
     }
     return true;
 }
 
-bool sv_empty(str_view *sv) { return sv->len == 0 || sv->data == NULL; }
+bool sv_empty(str_view sv) { return sv.len == 0 || sv.data == NULL; }
 
-bool sv_ends_with_crlf(str_view *sv) { return sv_ends_with(sv, "\r\n"); }
+bool sv_ends_with_crlf(str_view sv) { return sv_ends_with(sv, "\r\n"); }
 
 str_view sv_chop_by_crlf(str_view *sv) {
 
