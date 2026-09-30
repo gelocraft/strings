@@ -5,7 +5,7 @@ BINARY = example
 .PHONY: all
 all: $(BINARY)
 
-$(BINARY): example.o str_view.o
+$(BINARY): example.o str_view.o str_builder.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c %.h

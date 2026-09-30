@@ -1,19 +1,28 @@
-#include "str_view.h"
+#include "str_builder.h"
 #include <assert.h>
 
 int main(void) {
-    str_view raw_http_request =
-        sv_from_cstr("GET / HTTP/1.1\r\nHost: localhost:6969\r\n");
+    str_builder request = sb_from_cstr("");
+    sb_append_cstr(&request, "GET / HTTP/1.1\r\n");
+    sb_append_cstr(&request, "Host: localhost:6969\r\n");
+    sb_append_cstr(&request, "User-Agent: curl/8.22.0\r\n");
+    sb_append_cstr(&request, "Accept: */*\r\n");
+    sb_append_cstr(&request, "\r\n");
 
-    str_view request_line = sv_chop_by_crlf(&raw_http_request);
-    str_view field_line = sv_chop_by_crlf(&raw_http_request);
-    str_view empty_line = sv_chop_by_crlf(&raw_http_request);
+    sb_print(request);
 
-    assert(sv_equal_cstr(request_line, "GET / HTTP/1.1\r\n"));
-    assert(sv_equal_cstr(field_line, "Host: localhost:6969\r\n"));
+    sb_reset(&request);
+    sb_reset(&request);
+    sb_reset(&request);
 
-    assert(sv_ends_with_crlf(request_line));
-    assert(sv_ends_with_crlf(field_line));
+    fprintf(stdout, "after reset: [");
+    sb_print(request);
+    putchar(']');
+    putchar('\n');
 
-    assert(sv_empty(empty_line));
+    sb_free(&request);
+
+    fprintf(stdout, "after free: [");
+    sb_print(request);
+    putchar(']');
 }
