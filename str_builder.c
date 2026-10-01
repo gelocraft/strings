@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+str_builder sb_new(void) {
+    return (str_builder){
+        .data = malloc(sizeof(char) * DEFAULT_CAPACITY),
+        .capacity = DEFAULT_CAPACITY,
+        .len = 0,
+    };
+}
+
 str_builder sb_from_cstr(const char *cstr) {
     size_t cstr_len = strlen(cstr);
     size_t capacity = DEFAULT_CAPACITY;

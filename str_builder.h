@@ -14,6 +14,7 @@ typedef struct {
     size_t len;
 } str_builder;
 
+str_builder sb_new(void);
 str_builder sb_from_cstr(const char *cstr);
 void sb_free(str_builder *sb);
 void sb_reset(str_builder *sb);

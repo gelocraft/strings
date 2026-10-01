@@ -2,7 +2,7 @@
 #include <assert.h>
 
 int main(void) {
-    str_builder request = sb_from_cstr("");
+    str_builder request = sb_new();
     sb_append_cstr(&request, "GET / HTTP/1.1\r\n");
     sb_append_cstr(&request, "Host: localhost:6969\r\n");
     sb_append_cstr(&request, "User-Agent: curl/8.22.0\r\n");
